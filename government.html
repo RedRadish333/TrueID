@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Government Portal - TRUEID</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.1/dist/ethers.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="page-container">
+
+    <div class="topbar">
+      <h1>Government Portal</h1>
+
+      <button id="connectWalletBtn" class="btn primary">
+        Connect Wallet
+      </button>
+    </div>
+
+    <div class="wallet-card">
+      <p><strong>Connected Wallet:</strong></p>
+      <p id="walletAddress">Not Connected</p>
+    </div>
+
+   <div class="card">
+  <h2>Issue Credential</h2>
+
+  <input type="text" id="issueAddress" placeholder="Citizen Wallet Address" />
+  <input type="text" id="identityData" placeholder="Full Name + DOB e.g. John Smith 01/01/1990" />
+  <input type="text" id="citizenSignature" placeholder="Citizen Signature (provided by citizen)" />
+
+  <div class="action-row">
+    <button class="btn primary" onclick="verifyAndGenerate()">Verify Citizen & Generate Hash</button>
+  </div>
+
+  <input type="text" id="credentialHash" placeholder="Credential Hash (auto-generated)" readonly />
+
+  <button class="btn primary" onclick="issueCredential()">Issue Credential</button>
+</div>
+    <!-- REVOKE -->
+    <div class="card">
+      <h2>Revoke Credential</h2>
+
+      <input
+        type="text"
+        id="revokeAddress"
+        placeholder="Wallet Address"
+      />
+
+      <button class="btn danger" onclick="revokeCredential()">
+        Revoke Credential
+      </button>
+    </div>
+
+    <!-- ADD AUTHORITY -->
+    <div class="card">
+      <h2>Add Trusted Authority</h2>
+
+      <input
+        type="text"
+        id="addAuthorityAddress"
+        placeholder="Authority Wallet Address"
+      />
+
+      <button class="btn primary" onclick="addTrustedAuthority()">
+        Add Authority
+      </button>
+    </div>
+
+    <!-- REMOVE AUTHORITY -->
+    <div class="card">
+      <h2>Remove Trusted Authority</h2>
+
+      <input
+        type="text"
+        id="removeAuthorityAddress"
+        placeholder="Authority Wallet Address"
+      />
+
+      <button class="btn danger" onclick="removeTrustedAuthority()">
+        Remove Authority
+      </button>
+    </div>
+
+    <!-- VIEW -->
+    <div class="card">
+      <h2>View Trusted Authority Wallet</h2>
+
+        <input
+          type="text"
+          id="authorityCheckAddress"
+          placeholder="Authority Wallet Address"
+        />
+
+        <button class="btn secondary" onclick="viewTrustedAuthority()">
+          Check Trusted Authority
+        </button>
+
+        <div id="authorityResult"></div>
+    </div>
+    
+    <div class="card">
+      <h2>View Credential</h2>
+
+      <input
+        type="text"
+        id="viewAddress"
+        placeholder="Wallet Address"
+      />
+
+      <button class="btn secondary" onclick="viewCredential()">
+        View Credential
+      </button>
+
+      <div id="credentialResult"></div>
+    </div>
+
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/government.js"></script>
+
+</body>
+</html>

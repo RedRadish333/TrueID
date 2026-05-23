@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Citizen Portal - TRUEID</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.1/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <div class="page-container">
+    <div class="topbar">
+      <h1>Citizen Portal</h1>
+      <button id="connectWalletBtn" class="btn primary">Connect Wallet</button>
+    </div>
+
+    <div class="wallet-card">
+      <p><strong>Connected Wallet:</strong></p>
+      <p id="walletAddress">Not Connected</p>
+      <p id="loginStatus"></p>
+      <p id="sessionTimer"></p>
+      <button class="btn danger" onclick="logout()">Sign Out</button>
+    </div>
+
+    <div class="card">
+      <h2>Sign Your Identity</h2>
+      <p>Enter your details exactly as you will provide to the authority.</p>
+
+      <input type="text" id="identityData" placeholder="Full Name + DOB e.g. John Smith 01/01/1990" />
+      <div class="action-row">
+        <button class="btn primary" onclick="signIdentity()">Sign with Wallet</button>
+        <textarea id="signatureOutput" placeholder="Your signature will appear here" readonly></textarea>
+        <button class="btn secondary" onclick="copySignature()">Copy Signature</button>
+      </div>  
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script src="js/citizen.js"></script>
+</body>
+</html>

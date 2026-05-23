@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Third-Party Verifier - TRUEID</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.1/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <div class="verifier-page">
+    <div class="verifier-card">
+      <h1>Age Verification</h1>
+
+      <p class="subtitle">
+        Sign in using your Ethereum wallet to verify your age credential.
+      </p>
+
+      <div class="center-button">
+        <button class="btn primary" onclick="connectWallet()">
+          Sign-in Using Ethereum Wallet
+        </button>
+      </div>
+
+      <div id="verificationResult" class="result-box">
+        Verification result will appear here.
+      </div>
+
+      <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/verifier.js"></script>
+</body>
+</html>
