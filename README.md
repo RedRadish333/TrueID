@@ -100,6 +100,41 @@ Read-only contract used by third parties to check credentials.
 
 ---
 
+## Sign-In with Ethereum (SIWE)
+
+TRUEID uses [Sign-In with Ethereum (EIP-4361)](https://eips.ethereum.org/EIPS/eip-4361) as its authentication layer. Rather than usernames and passwords, users prove their identity by signing a structured message with their Ethereum wallet — no account registration required.
+
+### Why SIWE?
+
+Traditional session-based auth relies on a username/password pair stored on a server. SIWE replaces this entirely: the user's wallet *is* their identity, and a cryptographic signature proves they control it. This aligns naturally with TRUEID's goal of wallet-tied credentials — the same wallet used to authenticate is the one checked for an on-chain credential.
+
+### How the SIWE Flow Works in TRUEID
+
+```
+1. Frontend requests a SIWE message from the backend  GET /message?address=0x...
+2. Backend generates a nonce, builds a human-readable EIP-4361 message, returns it
+3. User signs the message in MetaMask (no transaction, no gas)
+4. Frontend sends the message + signature to the backend  POST /verify
+5. Backend recovers the signer address and checks it matches the nonce
+6. On success, a server-side session is created and an expiry time is returned
+```
+
+The signed message includes the domain, wallet address, a statement, chain ID, and a one-time nonce. This prevents phishing (domain binding) and replay attacks (nonce).
+
+### SIWE in Each Portal
+
+| Portal | Session Duration | Purpose |
+|---|---|---|
+| Citizen | 5 minutes | Proves wallet ownership before signing identity data |
+| Verifier | 30 minutes | Authenticates the user, then triggers an on-chain credential check |
+| Government | Not used | Government portal connects directly via MetaMask without a SIWE session |
+
+### Nonce & Replay Protection
+
+Each `/message` request generates a fresh random nonce stored server-side. The backend validates that the signed message contains the same nonce before accepting it. Once used, the nonce is bound to the session and cannot be replayed.
+
+---
+
 ## Backend (Express + SIWE)
 
 The Node.js backend handles wallet authentication using the [Sign-In with Ethereum (EIP-4361)](https://eips.ethereum.org/EIPS/eip-4361) standard.
